@@ -1,144 +1,188 @@
 public class Sumador {
-    int pointer = 0;
+    int pointer=0;
+    String carry;
     String entrada;
-
-    public Sumador(String entrada) {
-        this.entrada = entrada;
-    }
-
-    private void moverDerecha() {
+    private void moverDerecha(){
         pointer++;
     }
-
-    private void moverIzquierda() {
+    private void moverIzquierda(){
         pointer--;
     }
 
-    public void q0() {
-        while (entrada.charAt(pointer) != '+') {
-            moverDerecha();
+    public Sumador(String entrada){
+        this.entrada=entrada;
+    }
+    public void q0(){
+        while (entrada.charAt(pointer) != '+'){
+            pointer++;
         }
         q1();
     }
+    public void q1(){
 
-    public void q1() {
+
         try {
             do {
-                moverIzquierda();
+                pointer--;
             } while (entrada.charAt(pointer) != '1' && entrada.charAt(pointer) != '0');
-
-            char aux = entrada.charAt(pointer);
-            entrada = reemplazar(pointer, '_');
-
-            if (aux == '1') {
-                q2(); // bit izquierdo 1
-            } else {
-                q3(); // bit izquierdo 0
-            }
-        } catch (Exception e) {
+        
+	        char aux = entrada.charAt(pointer);
+	        String temp = "";
+	        int count = 0;
+	        for (count = 0; count < pointer; count++) {
+	            temp = temp + entrada.charAt(count);
+	        }
+	        temp = temp + "_";
+	        for (count = pointer +1; count < entrada.length(); count++) {
+	            temp = temp + entrada.charAt(count);
+	        }
+	        entrada = temp;
+	        switch (aux){
+	            case '1':
+	                q2();
+	                break;
+	            case '0':
+	                q3();
+	                break;
+	                
+	        }
+        }catch (Exception e){
             pointer++;
             q11();
         }
     }
 
-    public void q2() {
-        while (entrada.charAt(pointer) != '=') {
-            moverDerecha();
-        }
-        q4(); // 1 + ?
+    public void q2(){
+
+
+    	do {
+            pointer++;
+        }while (entrada.charAt(pointer) != '=');
+        q4();
     }
 
-    public void q3() {
-        while (entrada.charAt(pointer) != '=') {
-            moverDerecha();
-        }
-        q5(); // 0 + ?
-    }
+    public void q3(){
 
-    public void q4() {
         do {
-            moverIzquierda();
-        } while (entrada.charAt(pointer) != '1' && entrada.charAt(pointer) != '0');
-        char aux = entrada.charAt(pointer);
-        entrada = reemplazar(pointer, '_');
+            pointer++;
+        }while (entrada.charAt(pointer) != '=');
 
-        if (aux == '1') {
-            q12(); // 1 + 1
-        } else {
-            q6(); // 1 + 0
-        }
+        q5();
     }
 
-    public void q5() {
+    public void q4(){
+
+
         do {
-            moverIzquierda();
-        } while (entrada.charAt(pointer) != '1' && entrada.charAt(pointer) != '0');
+            pointer--;
+        }while (entrada.charAt(pointer) != '1' && entrada.charAt(pointer)!='0');
         char aux = entrada.charAt(pointer);
-        entrada = reemplazar(pointer, '_');
-
-        if (aux == '1') {
-            q6(); // 0 + 1
-        } else {
-            q7(); // 0 + 0
+        String temp = "";
+        int count = 0;
+        for (count = 0; count < pointer; count++) {
+            temp = temp + entrada.charAt(count);
+        }
+        temp = temp + "_";
+        for (count = pointer +1; count < entrada.length(); count++) {
+            temp = temp + entrada.charAt(count);
+        }
+        entrada = temp;
+        switch (aux) {
+        case '1':
+            q12();
+        	break;
+        case '0':
+            q6();
+        	break;
         }
     }
 
-    public void q6() {
-        while (pointer < entrada.length() && entrada.charAt(pointer) != 'z') {
-            moverDerecha();
-        }
+    public void q5(){
 
-        if (pointer == entrada.length()) {
+    	do {
+            pointer--;
+        }while (entrada.charAt(pointer) != '1' && entrada.charAt(pointer)!='0');
+        char aux = entrada.charAt(pointer);
+        String temp = "";
+        int count = 0;
+        for (count = 0; count < pointer; count++) {
+            temp = temp + entrada.charAt(count);
+        }
+        temp = temp + "_";
+        for (count = pointer +1; count < entrada.length(); count++) {
+            temp = temp + entrada.charAt(count);
+        }
+        entrada = temp;
+        switch (aux){
+            case '1':
+                q6();
+                break;
+            case '0':
+                q7();
+                break;
+        }
+    }
+
+    public void q6(){
+    
+
+        do {
+            pointer++;
+            System.out.println(pointer);
+        }while (pointer != (entrada.length() - 1)|| entrada.charAt(pointer) == 'z');
+        
+        if (pointer == (entrada.length() - 1)){
             entrada += "1";
+            q9();
         } else {
-            entrada = reemplazar(pointer, 'z'); // acarreo
+            q8();
         }
-
-        q9(); // volver al inicio
     }
+    public void q7(){
 
-    public void q7() {
-        while (pointer < entrada.length()) {
-            moverDerecha();
-        }
-        entrada += "0"; // suma sin acarreo
+
+        String temp = "";
+        do {
+            pointer++;
+        }while (pointer!= entrada.length());
+        entrada += "0";
         q9();
     }
+    public void q8(){
 
-    public void q8() {
-        entrada += "z"; // continuar acarreo
+
+        entrada+="z";
         q9();
-    }
 
-    public void q9() {
-        pointer = 0;
+    }
+    public void q9(){
+
+
+        do{
+            pointer--;
+        } while (pointer>0);
         q0();
     }
 
-    public void q11() {
-        while (pointer < entrada.length() && entrada.charAt(pointer) != 'z') {
-            moverDerecha();
-        }
+    public void q11(){
 
-        entrada = entrada.replace("z", "1");
+
+        do {
+            pointer++;
+        }while (entrada.charAt(pointer) != 'z' && pointer!= (entrada.length() - 1));
+        entrada = entrada.replace('z','1');
         System.out.println(entrada);
     }
-
-    public void q12() {
-        while (pointer < entrada.length() && entrada.charAt(pointer) != 'z') {
-            moverDerecha();
+    
+    public void q12(){
+        do {
+            pointer++;
+        }while (entrada.charAt(pointer) != 'z' && pointer != (entrada.length() - 1));
+        if ( entrada.contains("z")){
+            entrada = entrada.replace('z','1');
+        }else {
+            entrada += "0";
         }
-
-        if (entrada.contains("z")) {
-            entrada = entrada.replaceFirst("z", "1");
-        } else {
-            entrada += "0"; // hay acarreo
-        }
-
         q8();
-    }
-
-    private String reemplazar(int pos, char nuevo) {
-        return entrada.substring(0, pos) + nuevo + entrada.substring(pos + 1);
     }
 }
