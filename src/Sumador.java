@@ -25,27 +25,27 @@ public class Sumador {
             do {
                 pointer--;
             } while (entrada.charAt(pointer) != '1' && entrada.charAt(pointer) != '0');
-        
-	        char aux = entrada.charAt(pointer);
-	        String temp = "";
-	        int count = 0;
-	        for (count = 0; count < pointer; count++) {
-	            temp = temp + entrada.charAt(count);
-	        }
-	        temp = temp + "_";
-	        for (count = pointer +1; count < entrada.length(); count++) {
-	            temp = temp + entrada.charAt(count);
-	        }
-	        entrada = temp;
-	        switch (aux){
-	            case '1':
-	                q2();
-	                break;
-	            case '0':
-	                q3();
-	                break;
-	                
-	        }
+
+            char aux = entrada.charAt(pointer);
+            String temp = "";
+            int count = 0;
+            for (count = 0; count < pointer; count++) {
+                temp = temp + entrada.charAt(count);
+            }
+            temp = temp + "_";
+            for (count = pointer +1; count < entrada.length(); count++) {
+                temp = temp + entrada.charAt(count);
+            }
+            entrada = temp;
+            switch (aux){
+                case '1':
+                    q2();
+                    break;
+                case '0':
+                    q3();
+                    break;
+
+            }
         }catch (Exception e){
             pointer++;
             q11();
@@ -55,7 +55,7 @@ public class Sumador {
     public void q2(){
 
 
-    	do {
+        do {
             pointer++;
         }while (entrada.charAt(pointer) != '=');
         q4();
@@ -88,18 +88,18 @@ public class Sumador {
         }
         entrada = temp;
         switch (aux) {
-        case '1':
-            q12();
-        	break;
-        case '0':
-            q6();
-        	break;
+            case '1':
+                q12();
+                break;
+            case '0':
+                q6();
+                break;
         }
     }
 
     public void q5(){
 
-    	do {
+        do {
             pointer--;
         }while (entrada.charAt(pointer) != '1' && entrada.charAt(pointer)!='0');
         char aux = entrada.charAt(pointer);
@@ -124,19 +124,20 @@ public class Sumador {
     }
 
     public void q6(){
+        System.out.println("q6");
+        System.out.println(entrada);
         do {
             pointer++;
         }while (pointer != (entrada.length() - 1)&& entrada.charAt(pointer) != 'z');
-        
+
         if (entrada.charAt(pointer) == 'z'){
-        	entrada = entrada.replace('z', '0');
-        	q8();
+            entrada = entrada.replace('z', '0');
+            q8();
         } else {
             entrada += "1";
             q9();
         }
     }
-	
     public void q7(){
 
 
@@ -172,7 +173,7 @@ public class Sumador {
         entrada = entrada.replace('z','1');
         System.out.println(entrada);
     }
-    
+
     public void q12(){
         do {
             pointer++;
