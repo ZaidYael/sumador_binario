@@ -124,8 +124,6 @@ public class Sumador {
     }
 
     public void q6(){
-    System.out.println("q6");
-    System.out.println(entrada);
         do {
             pointer++;
         }while (pointer != (entrada.length() - 1)&& entrada.charAt(pointer) != 'z');
@@ -138,6 +136,7 @@ public class Sumador {
             q9();
         }
     }
+	
     public void q7(){
 
 
