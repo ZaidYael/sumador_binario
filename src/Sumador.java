@@ -124,18 +124,18 @@ public class Sumador {
     }
 
     public void q6(){
-    
-
+    System.out.println("q6");
+    System.out.println(entrada);
         do {
             pointer++;
-            System.out.println(pointer);
-        }while (pointer != (entrada.length() - 1)|| entrada.charAt(pointer) != 'z');
+        }while (pointer != (entrada.length() - 1)&& entrada.charAt(pointer) != 'z');
         
-        if (pointer == (entrada.length() - 1)){
+        if (entrada.charAt(pointer) == 'z'){
+        	entrada = entrada.replace('z', '0');
+        	q8();
+        } else {
             entrada += "1";
             q9();
-        } else {
-            q8();
         }
     }
     public void q7(){
