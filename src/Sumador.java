@@ -129,7 +129,7 @@ public class Sumador {
         do {
             pointer++;
             System.out.println(pointer);
-        }while (pointer != (entrada.length() - 1)|| entrada.charAt(pointer) == 'z');
+        }while (pointer != (entrada.length() - 1)|| entrada.charAt(pointer) != 'z');
         
         if (pointer == (entrada.length() - 1)){
             entrada += "1";
